@@ -1,11 +1,33 @@
+import java.io.*;
+import java.util.Random;
+import com.opencsv.*;
+import com.opencsv.exceptions.CsvValidationException;
 
 public class Implementation {
-public static void main(String[] args) {
-	String testText = "AABBCCDDEEFFJJIIIIIIIIII";
-	String testPattern = "CCDDEE";
-	String testPattern2 = "FFJJ";
-	search(testText, testPattern);
-	search(testText, testPattern2);
+public static void main(String[] args) throws IOException, CsvValidationException {
+	String text = "";
+	String pattern = "";
+	String path = "src/merged-files-plagiariseddata.csv";
+	String line = "";
+	int numlines = 10000;
+	int i = 0;
+	Random r = new Random();
+	int randomvalue = r.nextInt(numlines);
+	FileReader fr = new FileReader(path);
+	CSVReader cr = new CSVReader(fr);
+	String[] next;
+	
+	while ((next = cr.readNext()) != null && i < numlines) {
+		text = text + " " + next[3];
+		if (randomvalue == i) {
+			pattern = next[3];
+		}
+		i++;
+	}
+	System.out.println(randomvalue);
+	search(text, pattern);
+	
+	
 	
 	
 }
